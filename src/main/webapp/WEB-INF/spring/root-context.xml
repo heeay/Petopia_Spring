@@ -5,4 +5,33 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 		
+		  <!-- 1단계 --> 
+		<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+			<!-- 어떤 db에 접속할 건지 정보 작성 : 해당클래스의 필드명과 넣고싶은 값 -->
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+			<property name="username" value="PETOPIA" />
+			<property name="password" value="PETOPIA" />
+		</bean>
+		
+		 <!-- 2단계 : mybatisSpring에서 제공하는 sql명령을 실행하기 위한 도구 등록 -->
+		 <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		 	<!-- mybatis 설정파일의 위치를 지정하여 설정값들을 가져와야함 -->
+		 	<property name="configLocation" value="classpath:mybatis-config.xml" />
+		 	<!-- 어떤  db에 연결한건지 연결을 위한 도구 참조설정 -->
+		 	<property name="dataSource" ref="dataSource" /><!-- bean's Id 속성값을 ref에 -->
+		 </bean>
+		
+			  <!-- 3단계 : sql구문 실행을 위한 템플릿을 제공하는 도구 등록 -->
+		  <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+		  <!-- 매개변수 생성자 참조 설정 -->
+		  		<constructor-arg ref="sqlSessionFactory" />
+		  </bean>
+		
+				   <!--  파일 업로드 관련 빈 등록 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+		
 </beans>
