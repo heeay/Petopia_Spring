@@ -13,10 +13,7 @@
   		<typeAlias type="com.kh.petopia.member.model.vo.Member" alias="member" />
   	</typeAliases>
   
-  <mappers>
-  	<mapper resource="/mapper/member-mapper.xml" />
-  	<mapper resource="/mapper/board-mapper.xml" />
-  </mappers>
+
   
   
   </configuration>
