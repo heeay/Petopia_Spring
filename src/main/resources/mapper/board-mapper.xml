@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+
+	<resultMap id="boardResultSet" type="board">
+		<result column="BOARD_NO" property="boardNo" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_CONTENT" property="boardContent" />
+		<result column="BOARD_VIEWS" property="boardViews" />
+		<result column="BOARD_CREATE_DATE" property="boardCreateDate" />
+		<result column="USER_NO" property="userNo" />
+		<result column="CTG_NO" property="ctgNo" />
+		<result column="BOARD_STATUS" property="boardStatus" />
+
+	</resultMap>
+
+		<select id="selectListCount" resultType="_int">
+			SELECT
+						COUNT(*)
+			FROM
+						TB_BOARD
+			WHERE
+						BOARD_STATUS = 'Y'
+		</select>
+		
+		<select id="selectBoardList" resultMap="boardResultSet">
+			SELECT
+						BOARD_NO,
+						BOARD_TITLE,
+						USER_NO,
+						BOARD_VIEWS,
+						TO_CHAR(BOARD_CREATE_DATE, 'YYYY-MM-DD') AS "BOARD_CREATE_DATE",<!--  -->
+						FILE_IMG
+			FROM
+						TB_BOARD
+			WHERE
+						BOARD_STATUS = 'Y'
+			ORDER 
+			BY		
+						BOARD_NO DESC
+		</select>
+</mapper>
