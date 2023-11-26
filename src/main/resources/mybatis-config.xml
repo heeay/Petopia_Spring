@@ -10,10 +10,13 @@
   
   	<typeAliases>
   		<typeAlias type="com.kh.petopia.board.model.vo.Board" alias="board" />
-  		<typeAlias type="com.kh.petopia.member.model.vo.Member" alias="member" />
+  		<typeAlias type="com.kh.petopia.user.model.vo.User" alias="user" />
   	</typeAliases>
   
-
+	<mappers>
+		<mapper resource="./mapper/board-mapper.xml"/>
+		<mapper resource="./mapper/user-mapper.xml"/>
+	</mappers>
   
   
   </configuration>
